@@ -3,7 +3,8 @@ import PyPDF2
 import streamlit as st
 
 # Set the text to convert to speech
-reader = PyPDF2.PdfReader('CoverLetter.pdf')
+pdf_file = st.file_uploader('Upload a PDF file', type=['pdf'])
+reader = PyPDF2.PdfReader(pdf_file)
 text_list = [reader.pages[p].extract_text().strip().replace('\n', ' ') for p in range(len(reader.pages))]
 text = ''.join(text_list)
 
