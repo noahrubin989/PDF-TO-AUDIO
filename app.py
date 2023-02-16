@@ -2,7 +2,15 @@ import os
 import PyPDF2
 import streamlit as st
 
-# Set the text to convert to speech
+st.markdown("""
+            # PDF to Audio File App
+            
+            ### Created By: Noah Rubin
+            📊 [LinkedIn](https://www.linkedin.com/in/noah-rubin1/)  
+            
+            🧑🏽‍💻 [GitHub](https://github.com/noahrubin989)
+            """)
+
 pdf_file = st.file_uploader('Upload a PDF file', type=['pdf'])
 if pdf_file:
     reader = PyPDF2.PdfReader(pdf_file)
@@ -21,14 +29,20 @@ if pdf_file:
     }
 
     voice = st.selectbox('Select a voice', list(voice_dict.keys()))
+    
+    # Add a slider to adjust the word speed
+    word_speed = st.slider('Speed', min_value=100, max_value=500, step=10, value=160)
 
+    # Add a preview button to hear the selected voice and speed
+    if st.button('Preview Accent & Convert Text'):
+        os.system(f"say -v {voice_dict[voice]} -r {word_speed} Hello my name is {voice_dict[voice]} from {voice} and I am speaking at a speed set to {word_speed}")
+
+    # Add a button to generate and download the audio file
     # Set the output file name (optional)
-    output_file = "output.aiff"
-
-    # Generate the audio file using the "say" command
-    if st.button('click'):
-        st.write(f'Downloading {voice_dict[voice]} audiobook')
-        os.system(f"say -v {voice_dict[voice]} -o {output_file} {text}")
+    output_file_path = "audio.aiff"
+    os.system(f"say -v {voice_dict[voice]} -r {word_speed} -o {output_file_path} {text}")
+    with open(output_file_path, 'rb') as f:
+        st.download_button(label='Download Audio', data=f, file_name=output_file_path, mime='audio/aiff')
 
 
 # import streamlit as st
