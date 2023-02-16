@@ -73,7 +73,14 @@ class PdfSpeaker:
 
 
 def main():
-    st.title('PDF Speaker')
+    st.markdown("""
+            # PDF to Audio File App
+            
+            ### Created By: Noah Rubin
+            📊 [LinkedIn](https://www.linkedin.com/in/noah-rubin1/)  
+            
+            🧑🏽‍💻 [GitHub](https://github.com/noahrubin989)
+            """)
 
     # Upload a PDF file
     pdf_file = st.file_uploader('Upload a PDF file', type=['pdf'])
