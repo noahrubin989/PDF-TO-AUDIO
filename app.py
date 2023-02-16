@@ -1,6 +1,8 @@
 import os
 import PyPDF2
 import streamlit as st
+import tempfile
+
 
 st.markdown("""
             # PDF to Audio File App
@@ -38,11 +40,11 @@ if pdf_file:
         os.system(f"say -v {voice_dict[voice]} -r {word_speed} Hello my name is {voice_dict[voice]} from {voice} and I am speaking at a speed set to {word_speed}")
 
     # Add a button to generate and download the audio file
-    # Set the output file name (optional)
-    output_file_path = "audio.aiff"
-    # os.system(f"say -v {voice_dict[voice]} -r {word_speed} -o {output_file_path} {text}")
-    # with open(output_file_path, 'rb') as f:
-        # st.download_button(label='Download Audio', data=f, file_name=output_file_path, mime='audio/aiff')
+    with tempfile.TemporaryDirectory() as temp_dir:
+        output_file_path = os.path.join(temp_dir, "audio.aiff")
+        os.system(f"say -v {voice_dict[voice]} -r {word_speed} -o {output_file_path} {text}")
+        with open(output_file_path, 'rb') as f:
+            st.download_button(label='Download Audio', data=f, file_name=output_file_path, mime='audio/aiff')
 
 
 # import streamlit as st
