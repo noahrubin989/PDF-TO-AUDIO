@@ -4,31 +4,31 @@ import streamlit as st
 
 # Set the text to convert to speech
 pdf_file = st.file_uploader('Upload a PDF file', type=['pdf'])
-reader = PyPDF2.PdfReader(pdf_file)
-text_list = [reader.pages[p].extract_text().strip().replace('\n', ' ') for p in range(len(reader.pages))]
-text = ''.join(text_list)
+if pdf_file:
+    reader = PyPDF2.PdfReader(pdf_file)
+    text_list = [reader.pages[p].extract_text().strip().replace('\n', ' ') for p in range(len(reader.pages))]
+    text = ''.join(text_list)
 
-# Set the voice to use (optional)
-voice = "Moira"
-voice_dict = {
-    'United States': 'Samantha',
-    'Australia': 'Karen',
-    'India': 'Rishi',
-    'South Africa': 'Tessa',
-    'Ireland': 'Moira',
-    'Scotland': 'Fiona',
-    'England': 'Daniel'
-}
+    # Set the voice to use (optional)
+    voice_dict = {
+        'United States': 'Samantha',
+        'Australia': 'Karen',
+        'India': 'Rishi',
+        'South Africa': 'Tessa',
+        'Ireland': 'Moira',
+        'Scotland': 'Fiona',
+        'England': 'Daniel'
+    }
 
-voice = st.selectbox('Select a voice', list(voice_dict.keys()))
+    voice = st.selectbox('Select a voice', list(voice_dict.keys()))
 
-# Set the output file name (optional)
-output_file = "output.aiff"
+    # Set the output file name (optional)
+    output_file = "output.aiff"
 
-# Generate the audio file using the "say" command
-if st.button('click'):
-    st.write(f'Downloading {voice_dict[voice]} audiobook')
-    os.system(f"say -v {voice_dict[voice]} -o {output_file} {text}")
+    # Generate the audio file using the "say" command
+    if st.button('click'):
+        st.write(f'Downloading {voice_dict[voice]} audiobook')
+        os.system(f"say -v {voice_dict[voice]} -o {output_file} {text}")
 
 
 # import streamlit as st
