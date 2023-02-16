@@ -40,9 +40,9 @@ if pdf_file:
     # Add a button to generate and download the audio file
     # Set the output file name (optional)
     output_file_path = "audio.aiff"
-    os.system(f"say -v {voice_dict[voice]} -r {word_speed} -o {output_file_path} {text}")
-    with open(output_file_path, 'rb') as f:
-        st.download_button(label='Download Audio', data=f, file_name=output_file_path, mime='audio/aiff')
+    # os.system(f"say -v {voice_dict[voice]} -r {word_speed} -o {output_file_path} {text}")
+    # with open(output_file_path, 'rb') as f:
+        # st.download_button(label='Download Audio', data=f, file_name=output_file_path, mime='audio/aiff')
 
 
 # import streamlit as st
